@@ -1,4 +1,3 @@
-import '../App.css';
 import React, {Component} from 'react';
 import { KeyDown } from 'react-event-components'
 // const remote = window.require('electron').remote;
@@ -11,20 +10,23 @@ class Timer extends Component {
         this.state = {
             name: props.name,
             time: props.time,
-            stopped: 5
+            stopped: true
         };
         // this.startTimer = this.startTimer.bind(this);
         // this.toggleStartStop = this.toggleStartStop.bind(this);
         // this.resetTimer = this.resetTimer.bind(this);
     }
     componentWillReceiveProps(nextProps) {
-        this.setState({name: nextProps.name, time: nextProps.time, stopped: true});
-        clearInterval(this.timer);
+        if((nextProps.x != this.props.x) || (this.props.y != nextProps.y)){
+            this.setState({name: nextProps.name, time: nextProps.time, stopped: true});
+            clearInterval(this.timer);
+        }
     }
 
     startTimer() {
         var time = this.state.time;
         var seconds = new Date().getTime(), last = seconds
+        const notifyIntervals = [300, 240, 180, 120, 60, 30, 10]
         this.timer = setInterval(() => {
             var now = new Date().getTime();
 
@@ -34,24 +36,26 @@ class Timer extends Component {
             }
 
             last = now;
+            var formattedSeconds = Math.floor(time - (now - seconds) / 1000)
             this.setState({
-                time: (time - (now - seconds) / 1000)
+                time: formattedSeconds
             })
+            if (notifyIntervals.indexOf(Math.floor(formattedSeconds)) > -1){
+                var str = ((formattedSeconds % 60 == 0) ? (formattedSeconds / 60) + " Minutes" : formattedSeconds + " Seconds") + " Left!"
+                var options = {
+                        title: "Debate Timer",
+                        body: str,
+                        silent: true
+                    }
+                new Notification(options.title, options);
+            }
+
+            this.props.updateStateTime(this.props.x, this.props.y, formattedSeconds)
 
         }, 333);
-
-        // this.timer = setInterval(() => {
-        //     if (this.state.time < 1) {
-        //         clearInterval(this.timer);
-        //         return
-        //     }
-        //     this.setState({
-        //         time: time--
-        //     })
-        //     //console.log(this.state.time);
-        // }, 1000);
     }
     toggleStartStop() {
+
         var stopped = !this.state.stopped;
         this.setState({stopped: stopped})
         if (stopped) {
@@ -59,6 +63,8 @@ class Timer extends Component {
         } else {
             this.startTimer();
         }
+        var audio = new Audio('sounds/beep.mp3');
+        audio.play();
     }
     resetTimer() {
         this.setState({time: this.props.time, stopped: true})

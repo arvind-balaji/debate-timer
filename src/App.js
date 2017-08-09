@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import './App.css';
 import { KeyDown } from 'react-event-components'
-import Timer from './components/Timer';
+import Timer from './components/TimerComponent';
 
 
 const ROUND_DEFINITION = [
@@ -22,10 +21,13 @@ const ROUND_DEFINITION = [
 class App extends Component {
     constructor() {
         super();
+        var initialState = ROUND_DEFINITION.map(function(arr) {
+            return arr.slice();
+        });
         this.state = {
-            time: 300,
-            name: "1AR",
-            timerState: ROUND_DEFINITION,
+            time: 0,
+            name: "",
+            timerState: initialState,
             x: 0,
             y: 0
         };
@@ -72,6 +74,15 @@ class App extends Component {
             }
         }
     }
+    updateStateTime = (x, y, time) => {
+        var newTimerState = this.state.timerState.map(function(arr) {
+            return arr.slice();
+        });
+        newTimerState[y][x].time = time;
+        this.setState({
+            timerState: newTimerState
+        })
+    }
     render() {
         return (
             <div>
@@ -81,6 +92,9 @@ class App extends Component {
                 <KeyDown when="ArrowRight" do={() => this.handleKeyPress("right")} />
 
                 <Timer
+                    x = {this.state.x}
+                    y = {this.state.y}
+                    updateStateTime = {this.updateStateTime}
                     time={ROUND_DEFINITION[this.state.y][this.state.x].time}
                     name={ROUND_DEFINITION[this.state.y][this.state.x].name}
                 />
