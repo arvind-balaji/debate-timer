@@ -4,7 +4,7 @@ import { KeyDown } from 'react-event-components'
 // const dialog = remote.dialog;
 //const BrowserWindow = require('electron').BrowserWindow;
 
-class Timer extends Component {
+class TimerComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -95,4 +95,4 @@ class Timer extends Component {
         );
     };
 }
-export default Timer;
+export default TimerComponent;

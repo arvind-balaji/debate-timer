@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { KeyDown } from 'react-event-components'
-import Timer from './components/TimerComponent';
+import TimerComponent from './components/TimerComponent';
 
 
 const ROUND_DEFINITION = [
@@ -18,7 +18,7 @@ const ROUND_DEFINITION = [
     ]
 ]
 
-class App extends Component {
+class Timer extends Component {
     constructor() {
         super();
         var initialState = ROUND_DEFINITION.map(function(arr) {
@@ -103,4 +103,4 @@ class App extends Component {
     }
 };
 
-export default App;
+export default Timer;
