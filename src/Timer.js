@@ -43,6 +43,12 @@ class Timer extends Component {
                     x: x
                 })
             }
+            // else{
+            //     x = ROUND_DEFINITION[y].length - 1;
+            //     this.setState({
+            //         x: x
+            //     })
+            // }
         } else if (key === "right") {
             if (x + 1 < ROUND_DEFINITION[y].length) {
                 x++;
@@ -91,7 +97,7 @@ class Timer extends Component {
                 <KeyDown when="ArrowLeft" do={() => this.handleKeyPress("left")} />
                 <KeyDown when="ArrowRight" do={() => this.handleKeyPress("right")} />
 
-                <Timer
+                <TimerComponent
                     x = {this.state.x}
                     y = {this.state.y}
                     updateStateTime = {this.updateStateTime}

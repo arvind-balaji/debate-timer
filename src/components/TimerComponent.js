@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { KeyDown } from 'react-event-components'
+import { Row, Col, Button, Slider, Icon, Dropdown, Menu} from 'antd';
 // const remote = window.require('electron').remote;
 // const dialog = remote.dialog;
 //const BrowserWindow = require('electron').BrowserWindow;
@@ -77,20 +78,56 @@ class TimerComponent extends Component {
         var btnTxt = this.state.stopped
             ? "START"
             : "STOP";
+        const menu = (
+            <Menu>
+                <Menu.Item>
+                    <a href="#">Settings</a>
+                </Menu.Item>
+                <Menu.Item>
+                    <a href="#">Help</a>
+                </Menu.Item>
+            </Menu>
+        );
         return (
             <div className="timer-container">
-                <h3 className="timer-title">{this.state.name}</h3>
-                <h1 className="timer-label">
-                    {min}:{sec}
-                </h1>
+
                 <KeyDown when="Enter" do={() => this.toggleStartStop()} />
-                <button className="timer-button" onClick={() => this.toggleStartStop()}>
-                    {btnTxt}
-                </button>
+
                 <KeyDown when="Shift" do={() => this.resetTimer()} />
-                <button className="timer-button" onClick={() => this.resetTimer()}>
-                    RESET
-                </button>
+
+                <Row type="flex" justify="start" align="middle" style={{height:"22px"}}>
+                    <Col span={15}>
+                        <h3 className="timer-title">{this.state.name}</h3>
+                    </Col>
+                    <Col span={3}/>
+                    <Col span={2}>
+                        <Dropdown overlay={menu}>
+                            <a className="ant-dropdown-link" href="#">
+                               <Icon className="timer-title"type="down-square" />
+                            </a>
+                        </Dropdown>
+                    </Col>
+                    <Col span={1}/>
+                    <Col span={1}>
+                        <a className="ant-dropdown-link "  style={{color:"#ff3a46"}} onClick={() => window.close()}href="#">
+                           <Icon className="timer-title"type="close-square" />
+                        </a>
+                    </Col>
+                </Row>
+                <Row type="flex" justify="start">
+                        <h1 className="timer-label">
+                            {min}:{sec}
+                        </h1>
+                </Row>
+                <Row>
+                {/*<Slider className="timer-slider" defaultValue={30} />*/}
+                </Row>
+                <Row type="flex" justify="space-between">
+                        <Button type="primary" size="large" onClick={() => this.toggleStartStop()}>{btnTxt}</Button>
+                        <Button type="default" size="large" onClick={() => this.resetTimer()}>RESET</Button>
+                </Row>
+
+
             </div>
         );
     };

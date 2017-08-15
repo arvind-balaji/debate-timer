@@ -6,6 +6,7 @@
     "main": "public/electron.js",
     "homepage": "./",
     "dependencies": {
+        "antd": "^2.12.6",
         "electron-is-dev": "^0.1.2",
         "react": "^15.5.4",
         "react-dom": "^15.6.0",

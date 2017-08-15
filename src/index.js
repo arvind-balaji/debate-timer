@@ -6,5 +6,5 @@ import Settings from './Settings';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
-ReactDOM.render(<Settings />, document.getElementById('root'));
+ReactDOM.render(<Timer />, document.getElementById('root'));
 registerServiceWorker();
