@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { KeyDown } from 'react-event-components'
-import { Row, Col, Button, Slider, Icon, Dropdown, Menu} from 'antd';
+import { Row, Col, Button, Icon, Dropdown, Menu} from 'antd';
+import { Link } from 'react-router-dom';
+
 // const remote = window.require('electron').remote;
 // const dialog = remote.dialog;
 //const BrowserWindow = require('electron').BrowserWindow;
@@ -33,6 +35,14 @@ class TimerComponent extends Component {
 
             if (this.state.time < 1) {
                 clearInterval(this.timer);
+                if (this.props.settings.sound){
+                    var options = {
+                            title: "Debate Timer",
+                            body: "Time's Up!",
+                            silent: false
+                        }
+                    new Notification(options.title, options);
+                }
                 return
             }
 
@@ -41,7 +51,8 @@ class TimerComponent extends Component {
             this.setState({
                 time: formattedSeconds
             })
-            if (notifyIntervals.indexOf(Math.floor(formattedSeconds)) > -1){
+
+            if ((notifyIntervals.indexOf(Math.floor(formattedSeconds)) > -1) && this.props.prefs.sound){
                 var str = ((formattedSeconds % 60 == 0) ? (formattedSeconds / 60) + " Minutes" : formattedSeconds + " Seconds") + " Left!"
                 var options = {
                         title: "Debate Timer",
@@ -64,8 +75,8 @@ class TimerComponent extends Component {
         } else {
             this.startTimer();
         }
-        var audio = new Audio('sounds/beep.mp3');
-        audio.play();
+        // var audio = new Audio('./beep.mp3');
+        // audio.play();
     }
     resetTimer() {
         this.setState({time: this.props.time, stopped: true})
@@ -79,23 +90,23 @@ class TimerComponent extends Component {
             ? "START"
             : "STOP";
         const menu = (
-            <Menu>
+            <Menu className="no-drag">
                 <Menu.Item>
-                    <a href="#">Settings</a>
+                    <Link onClick={!this.state.stopped ? () => this.toggleStartStop() : null} to='/settings'>Settings</Link>
                 </Menu.Item>
                 <Menu.Item>
-                    <a href="#">Help</a>
+                    <Link onClick={!this.state.stopped ? () => this.toggleStartStop() : null} to='/help'>Help</Link>
                 </Menu.Item>
             </Menu>
         );
         return (
-            <div className="timer-container">
+            <div className="timer-container" >
 
                 <KeyDown when="Enter" do={() => this.toggleStartStop()} />
 
                 <KeyDown when="Shift" do={() => this.resetTimer()} />
 
-                <Row type="flex" justify="start" align="middle" style={{height:"22px"}}>
+                <Row className="no-drag" type="flex" justify="start" align="middle" style={{height:"22px"}}>
                     <Col span={15}>
                         <h3 className="timer-title">{this.state.name}</h3>
                     </Col>
@@ -103,7 +114,7 @@ class TimerComponent extends Component {
                     <Col span={2}>
                         <Dropdown overlay={menu}>
                             <a className="ant-dropdown-link" href="#">
-                               <Icon className="timer-title"type="down-square" />
+                               <Icon className="timer-title" type="down-square" />
                             </a>
                         </Dropdown>
                     </Col>

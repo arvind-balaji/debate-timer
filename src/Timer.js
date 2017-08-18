@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { KeyDown } from 'react-event-components'
+import {Redirect} from 'react-router-dom'
 import TimerComponent from './components/TimerComponent';
 
 
@@ -21,15 +22,25 @@ const ROUND_DEFINITION = [
 class Timer extends Component {
     constructor() {
         super();
-        var initialState = ROUND_DEFINITION.map(function(arr) {
-            return arr.slice();
-        });
+        var settings = JSON.parse(localStorage.getItem("settings"));
+        if (!settings) {
+            settings = {
+                event: 0,
+                prep: 8,
+                sound: true
+            }
+        }else{
+            ROUND_DEFINITION[1][0].time = settings.prep*60;
+            ROUND_DEFINITION[1][1].time = settings.prep*60;
+        }
+
         this.state = {
             time: 0,
             name: "",
-            timerState: initialState,
+            timerState: JSON.parse(JSON.stringify(ROUND_DEFINITION)),
             x: 0,
-            y: 0
+            y: 0,
+            settings: settings
         };
     }
     handleKeyPress = (key) => {
@@ -42,16 +53,20 @@ class Timer extends Component {
                 this.setState({
                     x: x
                 })
+            }else{
+                x = ROUND_DEFINITION[x].length - 1;
+                this.setState({
+                    x: x
+                })
             }
-            // else{
-            //     x = ROUND_DEFINITION[y].length - 1;
-            //     this.setState({
-            //         x: x
-            //     })
-            // }
         } else if (key === "right") {
-            if (x + 1 < ROUND_DEFINITION[y].length) {
+            if (x + 1 < ROUND_DEFINITION[x].length) {
                 x++;
+                this.setState({
+                    x: x
+                })
+            }else{
+                x = 0
                 this.setState({
                     x: x
                 })
@@ -81,15 +96,17 @@ class Timer extends Component {
         }
     }
     updateStateTime = (x, y, time) => {
-        var newTimerState = this.state.timerState.map(function(arr) {
-            return arr.slice();
-        });
+        var newTimerState = JSON.parse(JSON.stringify(this.state.timerState))
+
         newTimerState[y][x].time = time;
         this.setState({
             timerState: newTimerState
         })
     }
     render() {
+        if (localStorage.getItem("initial") == null) {
+            return <Redirect to='/help'/>;
+        }
         return (
             <div>
                 <KeyDown when="ArrowUp" do={() => this.handleKeyPress("up")} />
@@ -103,6 +120,7 @@ class Timer extends Component {
                     updateStateTime = {this.updateStateTime}
                     time={ROUND_DEFINITION[this.state.y][this.state.x].time}
                     name={ROUND_DEFINITION[this.state.y][this.state.x].name}
+                    prefs={this.state.settings}
                 />
             </div>
         )

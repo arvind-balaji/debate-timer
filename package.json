@@ -6,17 +6,17 @@
     "main": "public/electron.js",
     "homepage": "./",
     "dependencies": {
+        "electron-is-dev": "^0.1.2"
+    },
+    "devDependencies": {
         "antd": "^2.12.6",
-        "electron-is-dev": "^0.1.2",
+        "concurrently": "^3.4.0",
+        "electron": "^1.6.11",
+        "electron-builder": "^19.22.1",
         "react": "^15.5.4",
         "react-dom": "^15.6.0",
         "react-event-components": "^1.0.0",
-        "svgo": "^0.7.2"
-    },
-    "devDependencies": {
-        "concurrently": "^3.4.0",
-        "electron": "^1.6.11",
-        "electron-builder": "^18.6.2",
+        "react-router-dom": "^4.1.2",
         "react-scripts": "1.0.7",
         "wait-on": "^2.0.2"
     },
@@ -36,7 +36,7 @@
             "node_modules/**/*"
         ],
         "directories": {
-            "buildResources": "assets"
+            "buildResources": "build"
         },
         "win": {
             "target": "portable"

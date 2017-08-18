@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Timer from './Timer';
-import Settings from './Settings';
+import App from './App';
 
+import { HashRouter } from 'react-router-dom'
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
-ReactDOM.render(<Timer />, document.getElementById('root'));
+ReactDOM.render((
+    <HashRouter>
+        <App />
+    </HashRouter>
+), document.getElementById('root'))
 registerServiceWorker();

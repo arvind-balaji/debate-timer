@@ -18,10 +18,17 @@ let windowOptions = {
 };
 function createWindow() {
   mainWindow = new BrowserWindow(windowOptions);
+  if(isDev) {
+      BrowserWindow.addDevToolsExtension(
+        '/Users/ArvindB/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/2.5.0_0/'
+      );
+  }
+
   mainWindow.setPosition(0, electron.screen.getPrimaryDisplay().size.height - 150)
   mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
   mainWindow.on('closed', () => mainWindow = null);
 }
+
 
 app.on('ready', createWindow);
 
