@@ -1,9 +1,11 @@
 {
     "name": "debate-timer",
-    "version": "0.1.0",
+    "version": "0.2.0",
+    "productName": "Debate Timer",
     "private": true,
     "author": "Arvind Balaji <arvindb02@gmail.com>",
     "main": "public/electron.js",
+    "CSC_NAME": "com.arvinbalaji",
     "homepage": "./",
     "dependencies": {
         "electron-is-dev": "^0.1.2"
@@ -36,12 +38,14 @@
             "node_modules/**/*"
         ],
         "directories": {
-            "buildResources": "build"
+            "buildResources": "assets"
         },
         "win": {
+            "artifactName": "debatetimer-${version}-win.${ext}",
             "target": "portable"
         },
         "mac": {
+            "artifactName": "debatetimer-${version}-mac.${ext}",
             "target": "dmg"
         }
     }

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom'
-import { Form, Select, Input, InputNumber, Switch, Button, Col, Tooltip } from 'antd';
+import { Form, Select, Input, InputNumber, Switch, Button, Col} from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
 
@@ -33,14 +33,12 @@ class SettingsForm extends Component {
                     rules: [{ required: true}],
                     initialValue: this.props.prefs.event
                 })(
-                    <Tooltip placement="bottom" title="Coming Soon">
-                        <select disabled name='event' size="small" placeholder="Select">
-                            <option value="0">HS Policy</option>
-                            <option value="1">College Policy</option >
-                            <option value="2">Lincoln Douglas</option>
-                            <option value="3">Public Forum</option>
-                        </select>
-                    </Tooltip>
+                    <select name='event' size="small" placeholder="Select">
+                        <option value="0">HS Policy</option>
+                        <option value="1">College Policy</option >
+                        <option value="2">Lincoln Douglas</option>
+                        <option value="3">Public Forum</option>
+                    </select>
                 )}
             </FormItem>
             <FormItem label="Prep" type="number" colon={false} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>

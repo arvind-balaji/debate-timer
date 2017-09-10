@@ -35,7 +35,7 @@ class TimerComponent extends Component {
 
             if (this.state.time < 1) {
                 clearInterval(this.timer);
-                if (this.props.settings.sound){
+                if (this.props.prefs.sound){
                     var options = {
                             title: "Debate Timer",
                             body: "Time's Up!",
@@ -64,7 +64,7 @@ class TimerComponent extends Component {
 
             this.props.updateStateTime(this.props.x, this.props.y, formattedSeconds)
 
-        }, 333);
+        }, 900);
     }
     toggleStartStop() {
 
@@ -79,7 +79,8 @@ class TimerComponent extends Component {
         // audio.play();
     }
     resetTimer() {
-        this.setState({time: this.props.time, stopped: true})
+        this.setState({time: this.props.totalTime, stopped: true})
+        this.props.updateStateTime(this.props.x, this.props.y, this.props.totalTime)
         clearInterval(this.timer);
     }
 
@@ -107,10 +108,9 @@ class TimerComponent extends Component {
                 <KeyDown when="Shift" do={() => this.resetTimer()} />
 
                 <Row className="no-drag" type="flex" justify="start" align="middle" style={{height:"22px"}}>
-                    <Col span={15}>
+                    <Col span={18}>
                         <h3 className="timer-title">{this.state.name}</h3>
                     </Col>
-                    <Col span={3}/>
                     <Col span={2}>
                         <Dropdown overlay={menu}>
                             <a className="ant-dropdown-link" href="#">
