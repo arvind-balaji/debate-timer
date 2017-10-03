@@ -30,6 +30,8 @@ body {
 }
 .timer-slider {
     -webkit-app-region: no-drag;
+    height: 60px;
+    margin-left: 27px;
 }
 .help-key {
     font-size: 13px;
@@ -46,6 +48,12 @@ button {
 .ant-form-item {
     margin-bottom: 0px;
     -webkit-app-region: no-drag;
+}
+.ant-slider-track {
+    background-color: #49a9ee;
+}
+.ant-slider-handle {
+    border-color: #49a9ee;
 }
 select {
     background-color: #fff;

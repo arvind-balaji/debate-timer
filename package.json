@@ -1,11 +1,11 @@
 {
     "name": "debate-timer",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "productName": "Debate Timer",
     "private": true,
     "author": "Arvind Balaji <arvindb02@gmail.com>",
     "main": "public/electron.js",
-    "CSC_NAME": "com.arvinbalaji",
+    "CSC_NAME": "com.arvindbalaji",
     "homepage": "./",
     "dependencies": {
         "electron-is-dev": "^0.1.2"

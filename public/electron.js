@@ -20,7 +20,7 @@ function createWindow() {
   mainWindow = new BrowserWindow(windowOptions);
   if(isDev) {
       BrowserWindow.addDevToolsExtension(
-        '/Users/ArvindB/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/2.5.0_0/'
+        '/Users/ArvindB/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/2.5.1_0/'
       );
   }
 

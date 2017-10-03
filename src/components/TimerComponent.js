@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { KeyDown } from 'react-event-components'
-import { Row, Col, Button, Icon, Dropdown, Menu} from 'antd';
+import { Row, Col, Button, Icon, Dropdown, Menu, Slider} from 'antd';
 import { Link } from 'react-router-dom';
 
 // const remote = window.require('electron').remote;
@@ -83,7 +83,11 @@ class TimerComponent extends Component {
         this.props.updateStateTime(this.props.x, this.props.y, this.props.totalTime)
         clearInterval(this.timer);
     }
-
+    sliderTipFormat(x) {
+        var min = ("0" + Math.trunc(x / 60)).slice(-2);
+        var sec = ("0" + Math.trunc(x % 60)).slice(-2);
+        return min+":"+sec;
+    }
     render() {
         var min = ("0" + Math.trunc(this.state.time / 60)).slice(-2);
         var sec = ("0" + Math.trunc(this.state.time % 60)).slice(-2);
@@ -126,12 +130,26 @@ class TimerComponent extends Component {
                     </Col>
                 </Row>
                 <Row type="flex" justify="start">
+
+                    <Col span={18}>
                         <h1 className="timer-label">
                             {min}:{sec}
                         </h1>
+                    </Col>
+                    <Col span={2}>
+                        <Slider
+                            className="timer-slider"
+                            vertical
+                            value={this.state.time}
+                            tipFormatter={this.sliderTipFormat}
+                            onChange={(x) => this.setState({time: x})}
+                            step={5}
+                            defaultValue={this.props.totalTime}
+                            max={this.props.totalTime}
+                        />
+                    </Col>
                 </Row>
                 <Row>
-                {/*<Slider className="timer-slider" defaultValue={30} />*/}
                 </Row>
                 <Row type="flex" justify="space-between">
                         <Button type="primary" size="large" onClick={() => this.toggleStartStop()}>{btnTxt}</Button>
