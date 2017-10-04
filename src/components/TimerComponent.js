@@ -111,11 +111,11 @@ class TimerComponent extends Component {
 
                 <KeyDown when="Shift" do={() => this.resetTimer()} />
 
-                <Row className="no-drag" type="flex" justify="start" align="middle" style={{height:"22px"}}>
+                <Row type="flex" justify="start" align="middle" style={{height:"22px"}}>
                     <Col span={18}>
                         <h3 className="timer-title">{this.state.name}</h3>
                     </Col>
-                    <Col span={2}>
+                    <Col span={2} className="no-drag">
                         <Dropdown overlay={menu}>
                             <a className="ant-dropdown-link" href="#">
                                <Icon className="timer-title" type="down-square" />
@@ -123,7 +123,7 @@ class TimerComponent extends Component {
                         </Dropdown>
                     </Col>
                     <Col span={1}/>
-                    <Col span={1}>
+                    <Col span={1} className="no-drag">
                         <a className="ant-dropdown-link "  style={{color:"#ff3a46"}} onClick={() => window.close()}href="#">
                            <Icon className="timer-title"type="close-square" />
                         </a>
@@ -146,6 +146,7 @@ class TimerComponent extends Component {
                             step={5}
                             defaultValue={this.props.totalTime}
                             max={this.props.totalTime}
+                            disabled={!this.state.stopped}
                         />
                     </Col>
                 </Row>

@@ -13,7 +13,16 @@
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     <link rel="stylesheet" href="main.css">
     <script src="http://localhost:8097"></script>
-    <script type="text/javascript"> document.addEventListener('click', function(e) { if(document.activeElement.toString() == '[object HTMLButtonElement]'){ document.activeElement.blur(); } }); </script>
+    <script type="text/javascript">
+        document.addEventListener('click', function(e) { if(document.activeElement.toString() == '[object HTMLButtonElement]'){ document.activeElement.blur(); } });
+        function myFunction() {
+                            var shell = require('electron').shell;
+                         event.preventDefault();
+                          shell.openExternal('https://github.com');
+
+
+                        }
+    </script>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
